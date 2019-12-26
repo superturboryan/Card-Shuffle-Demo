@@ -103,8 +103,8 @@
 				94F50CEF23B5294F0009F42D /* SceneDelegate.swift */,
 				94F50CF123B5294F0009F42D /* ViewController.swift */,
 				94F50CF323B5294F0009F42D /* Main.storyboard */,
-				94F50CF623B529500009F42D /* Assets.xcassets */,
 				94F50CF823B529500009F42D /* LaunchScreen.storyboard */,
+				94F50CF623B529500009F42D /* Assets.xcassets */,
 				94F50CFB23B529500009F42D /* Info.plist */,
 			);
 			path = "Card-Shuffle-Animation";
@@ -437,6 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T6MXF72738;
 				INFOPLIST_FILE = "Card-Shuffle-Animation/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -455,6 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T6MXF72738;
 				INFOPLIST_FILE = "Card-Shuffle-Animation/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
