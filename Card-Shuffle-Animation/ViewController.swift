@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var setButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     
+    var luckyNumber = 0
     
     var cards: [UIImageView] = []
     
@@ -60,9 +61,12 @@ class ViewController: UIViewController {
         let viewHeight = self.view.frame.size.height
         let viewWidth = self.view.frame.size.width
         
+        self.luckyNumber = Int.random(in: 0..<5)
+        
         for index in 0...5 {
          
             let card = UIImageView(image: UIImage(named: "PF-Card"))
+            card.tag = index
 
             switch (index % 2 == 0) {
             case true:
@@ -120,7 +124,7 @@ class ViewController: UIViewController {
             let circlePath = UIBezierPath(arcCenter: card.center, radius: CGFloat(radius), startAngle: 0, endAngle: .pi*2, clockwise: index%2==0)
             
             let animation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
-            animation.duration = 0.9
+            animation.duration = 0.8
             animation.repeatCount = 5
             animation.path = circlePath.cgPath
             animation.fillMode = CAMediaTimingFillMode.forwards
@@ -141,9 +145,7 @@ class ViewController: UIViewController {
         let horizontalSpacing = (viewWidth - (3*cardWidth)) / 5
         
         for (index,card) in self.cards.enumerated() {
-            
-            card.layer.removeAllAnimations()
-            
+   
             var col = index
             var row = col > 2 ? 1 : 0
             if col > 2 {col = col - 3}
@@ -154,10 +156,9 @@ class ViewController: UIViewController {
             
             let newFrame = CGRect(x: x, y: y, width: cardWidth, height: cardHeight)
             
-            UIView.animate(withDuration: 0.75, delay: 0.1, options: .curveEaseInOut, animations: {
-                
+            UIView.animate(withDuration: 0.9, delay: 0.1, options: .curveEaseInOut, animations: {
+                card.layer.removeAllAnimations()
                 card.frame = newFrame
-                
             }) { (success) in
                 
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.flipCard(_:)))
@@ -182,7 +183,7 @@ class ViewController: UIViewController {
         let cardBackImage = UIImage(named: "PF-Card")
         
         if (card.image?.isEqual(cardBackImage))! {
-            card.image = UIImage(named: "PF-Celebrate")
+            card.image = card.tag == self.luckyNumber ? UIImage(named: "PF-Celebrate") : UIImage(named: "PF-Frown")
             UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
         else {
