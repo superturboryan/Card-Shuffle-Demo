@@ -12,13 +12,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var shuffleButton: UIButton!
+    @IBOutlet weak var setButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     
     
-    var cards: [UIView] = []
+    var cards: [UIImageView] = []
     
-    let cardWidth = 72.5
-    let cardHeight = 96.2
+    let cardWidth = 125.0
+    let cardHeight = 162.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +28,10 @@ class ViewController: UIViewController {
     }
     
     func setupView() {
-        addButton.layer.cornerRadius = 15.0
-        shuffleButton.layer.cornerRadius = 15.0
-        clearButton.layer.cornerRadius = 15.0
+        addButton.layer.cornerRadius = 10.0
+        shuffleButton.layer.cornerRadius = 10.0
+        setButton.layer.cornerRadius = 10.0
+        clearButton.layer.cornerRadius = 10.0
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
@@ -43,6 +45,11 @@ class ViewController: UIViewController {
         shuffleAllCards()
     }
     
+    
+    @IBAction func setPressed(_ sender: UIButton) {
+        organizeCardsIntoGrid()
+    }
+    
     @IBAction func clearButton(_ sender: UIButton) {
         clearAllCards()
     }
@@ -53,9 +60,9 @@ class ViewController: UIViewController {
         let viewHeight = self.view.frame.size.height
         let viewWidth = self.view.frame.size.width
         
-        for index in 0...4 {
+        for index in 0...5 {
          
-            let card = UIView()
+            let card = UIImageView(image: UIImage(named: "PF-Card"))
 
             switch (index % 2 == 0) {
             case true:
@@ -65,14 +72,15 @@ class ViewController: UIViewController {
                 card.frame = CGRect(x: Double(viewWidth + 10), y: Double(viewHeight*0.75), width: cardWidth, height: cardHeight)
                 break
             }
- 
-            let cardImage = UIImage(named: "PF-Card")
-            let cardImageView = UIImageView(image: cardImage)
-            cardImageView.frame.size = CGSize(width: cardWidth, height: cardHeight)
             
-            card.addSubview(cardImageView)
+            card.layer.masksToBounds = false
+            card.layer.shadowColor = UIColor.black.cgColor
+            card.layer.shadowOpacity = 0.2
+            card.layer.shadowRadius = 5.0
+            card.layer.shadowOffset = CGSize(width: 0, height: 3)
+
             self.view.addSubview(card)
-            
+
             self.cards.append(card)
         }
     }
@@ -84,7 +92,7 @@ class ViewController: UIViewController {
         
         for (index, cardView) in self.cards.enumerated() {
             
-            let x = Double((viewWidth/2))-(cardWidth/2)
+            let x = Double((viewWidth/2))-(cardWidth/2)+Double(index*5)
             
             let y = Double((viewHeight/2))-(cardHeight/2)+Double(index*5)
             
@@ -97,29 +105,65 @@ class ViewController: UIViewController {
                 
                             cardView.frame = newCenterFrame
                 
-            }) { (sucess) in }
+            }) { (sucess) in
+                
+            }
         }
     }
     
     func shuffleAllCards() {
         
-        for (index,card) in self.cards.enumerated() {
+        for (index,card) in self.cards.reversed().enumerated() {
             
-            let radius = 30 + (3.0 * Double(index))
+            let radius = 40
             
             let circlePath = UIBezierPath(arcCenter: card.center, radius: CGFloat(radius), startAngle: 0, endAngle: .pi*2, clockwise: index%2==0)
             
             let animation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
-            animation.duration = 1
+            animation.duration = 0.9
             animation.repeatCount = 5
             animation.path = circlePath.cgPath
             animation.fillMode = CAMediaTimingFillMode.forwards
             animation.isRemovedOnCompletion = false
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(index)*0.1)) { // Change `2.0` to the desired number of seconds.
+            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(index)*0.15)) {
                card.layer.add(animation, forKey: nil)
             }
 
+        }
+        
+    }
+    
+    func organizeCardsIntoGrid() {
+        
+        let viewWidth = Double(view.frame.size.width)
+        let viewHeight = Double(view.frame.size.height)
+        let horizontalSpacing = (viewWidth - (3*cardWidth)) / 5
+        
+        for (index,card) in self.cards.enumerated() {
+            
+            card.layer.removeAllAnimations()
+            
+            var col = index
+            var row = col > 2 ? 1 : 0
+            if col > 2 {col = col - 3}
+            
+            let x = (Double(col+1) * horizontalSpacing) + (Double(col) * cardWidth)
+            
+            let y = (Double(row+1) * horizontalSpacing) + (Double(row) * cardHeight) + 200
+            
+            let newFrame = CGRect(x: x, y: y, width: cardWidth, height: cardHeight)
+            
+            UIView.animate(withDuration: 0.75, delay: 0.1, options: .curveEaseInOut, animations: {
+                
+                card.frame = newFrame
+                
+            }) { (success) in
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.flipCard(_:)))
+                card.isUserInteractionEnabled = true
+                card.addGestureRecognizer(tapGestureRecognizer)
+            }
         }
         
     }
@@ -132,6 +176,21 @@ class ViewController: UIViewController {
         self.cards = []
     }
     
+    @objc func flipCard(_ tap:UITapGestureRecognizer) {
+        
+        let card = tap.view as! UIImageView
+        let cardBackImage = UIImage(named: "PF-Card")
+        
+        if (card.image?.isEqual(cardBackImage))! {
+            card.image = UIImage(named: "PF-Celebrate")
+            UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+        }
+        else {
+            card.image = cardBackImage
+            UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromRight, animations: nil, completion: nil)
+        }
+        
+    }
     
     
 }
