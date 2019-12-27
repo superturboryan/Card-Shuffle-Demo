@@ -15,6 +15,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bar-T0-0Cw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </skView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Shuffle Demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pv4-W2-x0U">
                                 <rect key="frame" x="55.5" y="100" width="264" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
@@ -73,26 +77,72 @@
                                     <constraint firstAttribute="width" constant="320" id="xt9-Y1-Kgd"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvj-49-I9b" userLabel="Chest View">
+                                <rect key="frame" x="46.5" y="226" width="282" height="215"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYm-MY-lqS">
+                                        <rect key="frame" x="40" y="119" width="202" height="66"/>
+                                        <color key="backgroundColor" red="0.44943362474441528" green="0.19366031885147095" blue="0.11761903017759323" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="chest-bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-7s-GlO">
+                                        <rect key="frame" x="20" y="19" width="243" height="196"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chest-top" translatesAutoresizingMaskIntoConstraints="NO" id="FZG-bN-Edf">
+                                        <rect key="frame" x="17" y="19" width="251" height="198"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="FZG-bN-Edf" secondAttribute="trailing" constant="14" id="BFR-O3-T8l"/>
+                                    <constraint firstItem="Dkp-7s-GlO" firstAttribute="centerX" secondItem="Kvj-49-I9b" secondAttribute="centerX" id="IIp-1G-5NR"/>
+                                    <constraint firstAttribute="bottom" secondItem="Dkp-7s-GlO" secondAttribute="bottom" id="J3a-c9-kKK"/>
+                                    <constraint firstItem="uYm-MY-lqS" firstAttribute="bottom" secondItem="Dkp-7s-GlO" secondAttribute="bottom" constant="-30" id="LPW-HL-h5y"/>
+                                    <constraint firstItem="FZG-bN-Edf" firstAttribute="top" secondItem="Dkp-7s-GlO" secondAttribute="top" id="MT1-lf-Aox"/>
+                                    <constraint firstItem="uYm-MY-lqS" firstAttribute="leading" secondItem="Dkp-7s-GlO" secondAttribute="leading" constant="20" id="ROk-YV-ZgD"/>
+                                    <constraint firstAttribute="width" constant="282" id="ViI-cM-XfQ"/>
+                                    <constraint firstAttribute="height" constant="215" id="cB9-8E-pV0"/>
+                                    <constraint firstAttribute="bottom" secondItem="FZG-bN-Edf" secondAttribute="bottom" constant="-2" id="mgh-gd-Q2c"/>
+                                    <constraint firstItem="FZG-bN-Edf" firstAttribute="leading" secondItem="Kvj-49-I9b" secondAttribute="leading" constant="17" id="nb2-Yt-5rc"/>
+                                    <constraint firstItem="uYm-MY-lqS" firstAttribute="top" secondItem="Dkp-7s-GlO" secondAttribute="top" constant="100" id="sWU-w6-uRq"/>
+                                    <constraint firstItem="uYm-MY-lqS" firstAttribute="trailing" secondItem="Dkp-7s-GlO" secondAttribute="trailing" constant="-20" id="tAp-Z4-EjP"/>
+                                    <constraint firstItem="Dkp-7s-GlO" firstAttribute="top" secondItem="Kvj-49-I9b" secondAttribute="top" constant="19" id="tai-5Z-aMS"/>
+                                    <constraint firstItem="Dkp-7s-GlO" firstAttribute="leading" secondItem="Kvj-49-I9b" secondAttribute="leading" constant="20" id="ue6-pQ-6nI"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.12432396083604225" blue="0.38486355762847835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="bar-T0-0Cw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="I8e-Z9-aj4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bar-T0-0Cw" secondAttribute="trailing" id="Ikk-cD-VDl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rkn-Dz-ySK" secondAttribute="bottom" constant="40" id="JWn-qu-y0U"/>
+                            <constraint firstItem="bar-T0-0Cw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ljd-R8-JFf"/>
                             <constraint firstItem="Pv4-W2-x0U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="N9i-P0-d8C"/>
+                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TdL-er-mZx"/>
                             <constraint firstItem="rkn-Dz-ySK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p0d-Gr-fex"/>
+                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rdR-Ij-mEk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bar-T0-0Cw" secondAttribute="bottom" id="vfN-A7-qOn"/>
                             <constraint firstItem="Pv4-W2-x0U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vpM-8d-ef8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="9Me-Jq-evI" id="gwv-XH-TOY"/>
+                        <outlet property="chestBottom" destination="Dkp-7s-GlO" id="NB9-Lg-Njg"/>
+                        <outlet property="chestTop" destination="FZG-bN-Edf" id="HSY-ed-8BT"/>
+                        <outlet property="chestView" destination="Kvj-49-I9b" id="Esz-Iv-7Wk"/>
                         <outlet property="clearButton" destination="dyX-7z-jUi" id="hBj-ey-F7K"/>
                         <outlet property="setButton" destination="PRk-Ll-ygh" id="1FT-wh-1lb"/>
                         <outlet property="shuffleButton" destination="wbu-v9-maW" id="Rup-wo-tIj"/>
+                        <outlet property="skView" destination="bar-T0-0Cw" id="rkh-sI-A6w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="139"/>
+            <point key="canvasLocation" x="-117.59999999999999" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chest-bottom" width="128" height="128"/>
+        <image name="chest-top" width="128" height="128"/>
+    </resources>
 </document>

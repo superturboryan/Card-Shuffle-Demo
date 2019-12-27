@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class ViewController: UIViewController {
     
@@ -14,6 +15,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var shuffleButton: UIButton!
     @IBOutlet weak var setButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
+    
+    @IBOutlet weak var chestView: UIView!
+    @IBOutlet weak var chestBottom: UIImageView!
+    @IBOutlet weak var chestTop: UIImageView!
+    
+    @IBOutlet weak var skView: SKView!
     
     var luckyNumber = 0
     
@@ -25,7 +32,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
+        presentEmptyScene()
     }
     
     func setupView() {
@@ -33,6 +40,10 @@ class ViewController: UIViewController {
         shuffleButton.layer.cornerRadius = 10.0
         setButton.layer.cornerRadius = 10.0
         clearButton.layer.cornerRadius = 10.0
+        
+        self.chestView.layer.masksToBounds = false
+        self.chestView.isHidden = true
+        self.chestView.transform = CGAffineTransform.init(scaleX: 0, y: 0)
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
@@ -175,6 +186,9 @@ class ViewController: UIViewController {
             card.removeFromSuperview()
         }
         self.cards = []
+        
+        self.chestView.isHidden = true
+        self.chestView.transform = CGAffineTransform.init(scaleX: 0, y: 0)
     }
     
     @objc func flipCard(_ tap:UITapGestureRecognizer) {
@@ -183,8 +197,13 @@ class ViewController: UIViewController {
         let cardBackImage = UIImage(named: "PF-Card")
         
         if (card.image?.isEqual(cardBackImage))! {
+            
             card.image = card.tag == self.luckyNumber ? UIImage(named: "PF-Celebrate") : UIImage(named: "PF-Frown")
             UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+            
+            if card.tag == self.luckyNumber {
+                self.presentChestReward()
+            }
         }
         else {
             card.image = cardBackImage
@@ -193,6 +212,122 @@ class ViewController: UIViewController {
         
     }
     
+    func presentChestReward() {
+    
+        for card in self.cards {
+            
+            UIView.animate(withDuration: 0.4, delay: 2.0, options: .curveEaseInOut, animations: {
+                
+                card.alpha = 0.0
+                
+            }) { (success) in
+                
+                if card.tag == 5 {
+                    
+                    self.showChest {
+                        self.shakeChestLid()
+                    }
+                }
+            }
+        }
+    }
+    
+    func showChest(ThenDo completion: @escaping ()->Void) {
+        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+            self.chestView.isHidden = false
+            self.chestView.transform = .identity
+        }) { (success) in
+            
+            completion()
+        }
+    }
+    
+    func shakeChestLid() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.delegate = self
+        animation.duration = 0.25
+        animation.repeatCount = 4
+        animation.autoreverses = true
+//        animation.isRemovedOnCompletion = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y+10))
+        chestTop.layer.add(animation, forKey: "position")
+    }
+    
+    func openChest() {
+        
+        let angle = Measurement(value: 45, unit: UnitAngle.degrees).converted(to: .radians).value
+        
+        let rise = CGAffineTransform.init(translationX: 0, y: -150)
+        let rotate = CGAffineTransform.init(rotationAngle: CGFloat(angle))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.presentCoinExplosionScene()
+        }
+        
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.3, options: .overrideInheritedOptions, animations: {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
+                self.chestTop.transform = rise.concatenating(rotate)
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                self.chestTop.alpha = 0
+            }
+            
+        }) { (success) in }
+    }
+    
+    func presentEmptyScene() {
+        let emptyScene = SKScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
+        emptyScene.backgroundColor = .clear
+        self.skView.allowsTransparency = true
+        self.skView.presentScene(emptyScene)
+    }
+    
+    func presentCoinExplosionScene() {
+        
+        let coinExplosionScene = CoinExplosionScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
+        
+        let emitterPosition = self.chestView.center
+        
+        coinExplosionScene.setupEmittersWithPosition(emitterPosition)
+        
+        self.skView.presentScene(coinExplosionScene)
+    }
+}
+
+extension ViewController:CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        print("Animation finished")
+        
+        self.openChest()
+    }
     
 }
 
+extension UIView {
+
+    public func removeAllConstraints() {
+        var _superview = self.superview
+
+        while let superview = _superview {
+            for constraint in superview.constraints {
+
+                if let first = constraint.firstItem as? UIView, first == self {
+                    superview.removeConstraint(constraint)
+                }
+
+                if let second = constraint.secondItem as? UIView, second == self {
+                    superview.removeConstraint(constraint)
+                }
+            }
+
+            _superview = superview.superview
+        }
+
+        self.removeConstraints(self.constraints)
+        self.translatesAutoresizingMaskIntoConstraints = true
+    }
+}
