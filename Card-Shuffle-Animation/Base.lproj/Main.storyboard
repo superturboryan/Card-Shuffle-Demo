@@ -78,7 +78,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvj-49-I9b" userLabel="Chest View">
-                                <rect key="frame" x="46.5" y="226" width="282" height="215"/>
+                                <rect key="frame" x="46.5" y="326" width="282" height="215"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYm-MY-lqS">
                                         <rect key="frame" x="40" y="119" width="202" height="66"/>
@@ -117,7 +117,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rkn-Dz-ySK" secondAttribute="bottom" constant="40" id="JWn-qu-y0U"/>
                             <constraint firstItem="bar-T0-0Cw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ljd-R8-JFf"/>
                             <constraint firstItem="Pv4-W2-x0U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="N9i-P0-d8C"/>
-                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TdL-er-mZx"/>
+                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="100" id="TdL-er-mZx"/>
                             <constraint firstItem="rkn-Dz-ySK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p0d-Gr-fex"/>
                             <constraint firstItem="Kvj-49-I9b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rdR-Ij-mEk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bar-T0-0Cw" secondAttribute="bottom" id="vfN-A7-qOn"/>

@@ -225,7 +225,12 @@ class ViewController: UIViewController {
                 if card.tag == 5 {
                     
                     self.showChest {
-                        self.shakeChestLid()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.shakeChestLid()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                                self.shakeChestLid()
+                            }
+                        }
                     }
                 }
             }
@@ -245,12 +250,13 @@ class ViewController: UIViewController {
     func shakeChestLid() {
         let animation = CABasicAnimation(keyPath: "position")
         animation.delegate = self
-        animation.duration = 0.25
-        animation.repeatCount = 4
+        animation.duration = 0.1
+        animation.repeatCount = Float(Int.random(in: 2...4))
         animation.autoreverses = true
-//        animation.isRemovedOnCompletion = true
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
         animation.fromValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y))
-        animation.toValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y+10))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y-10))
         chestTop.layer.add(animation, forKey: "position")
     }
     
@@ -258,20 +264,20 @@ class ViewController: UIViewController {
         
         let angle = Measurement(value: 45, unit: UnitAngle.degrees).converted(to: .radians).value
         
-        let rise = CGAffineTransform.init(translationX: 0, y: -150)
+        let rise = CGAffineTransform.init(translationX: -100, y: -250)
         let rotate = CGAffineTransform.init(rotationAngle: CGFloat(angle))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.presentCoinExplosionScene()
         }
         
-        UIView.animateKeyframes(withDuration: 1.0, delay: 0.3, options: .overrideInheritedOptions, animations: {
+        UIView.animateKeyframes(withDuration: 0.7, delay: 1.0, options: .calculationModeCubicPaced, animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
                 self.chestTop.transform = rise.concatenating(rotate)
             }
             
-            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.5) {
                 self.chestTop.alpha = 0
             }
             
@@ -289,12 +295,14 @@ class ViewController: UIViewController {
         
         let coinExplosionScene = CoinExplosionScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         
-        let emitterPosition = self.chestView.center
+        let emitterPosition = CGPoint(x: 187.5,y: 230)
         
         coinExplosionScene.setupEmittersWithPosition(emitterPosition)
         
         self.skView.presentScene(coinExplosionScene)
     }
+    
+    var animationCount = 0
 }
 
 extension ViewController:CAAnimationDelegate {
@@ -302,7 +310,10 @@ extension ViewController:CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         print("Animation finished")
         
-        self.openChest()
+        if animationCount == 1 {
+            self.openChest()
+        }
+        animationCount += 1
     }
     
 }
