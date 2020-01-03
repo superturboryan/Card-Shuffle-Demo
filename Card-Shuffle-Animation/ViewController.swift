@@ -26,8 +26,10 @@ class ViewController: UIViewController {
     
     var cards: [UIImageView] = []
     
-    let cardWidth = 125.0
-    let cardHeight = 162.0
+    let cardWidth = 115.0
+    let cardHeight = 147.0
+    
+    var shakeCount:Float = 2.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +49,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        
         generateCards()
         moveCardsToCenter()
-        
     }
     
     @IBAction func shufflePressed(_ sender: UIButton) {
@@ -77,6 +77,7 @@ class ViewController: UIViewController {
         for index in 0...5 {
          
             let card = UIImageView(image: UIImage(named: "PF-Card"))
+            card.contentMode = .scaleAspectFit
             card.tag = index
 
             switch (index % 2 == 0) {
@@ -113,9 +114,9 @@ class ViewController: UIViewController {
             
             let newCenterFrame = CGRect(x: x, y: y, width: cardWidth, height: cardHeight)
             
-            UIView.animate(withDuration: 1.0,
-                           delay: 0.2*Double((index+1)),
-                           options: .curveEaseOut,
+            UIView.animate(withDuration: 0.9,
+                           delay: 0.15*Double((index+1)),
+                           options: .curveEaseInOut,
                            animations: {
                 
                             cardView.frame = newCenterFrame
@@ -193,67 +194,88 @@ class ViewController: UIViewController {
     
     @objc func flipCard(_ tap:UITapGestureRecognizer) {
         
-        let card = tap.view as! UIImageView
+        let selectedCard = tap.view as! UIImageView
         let cardBackImage = UIImage(named: "PF-Card")
-        let isLucky = card.tag == luckyNumber
+        let isLucky = selectedCard.tag == luckyNumber
         
-        Haptics.shared.selection()
+        isLucky ? Haptics.shared.impact(withIntensity: 1.0) : Haptics.shared.selection()
         
-        if (card.image?.isEqual(cardBackImage))! {
+        if (selectedCard.image?.isEqual(cardBackImage))! {
             
-            card.image = isLucky ? UIImage(named: "PF-Celebrate") : UIImage(named: "PF-Frown")
-            UIView.transition(with: card, duration: isLucky ? 0.6 : 0.4, options: .transitionFlipFromLeft, animations: {
+            selectedCard.image = isLucky ? UIImage(named: "PF-White") : UIImage(named: "PF-Frown")
+            UIView.transition(with: selectedCard, duration: isLucky ? 0.6 : 0.4, options: .transitionFlipFromLeft, animations: {
                 
                 if isLucky {
-//                    UIView.animate(withDuration: 0.7) {
-                        card.transform = .init(scaleX: 1.2, y: 1.2)
-//                    }
+                        selectedCard.transform = .init(scaleX: 1.2, y: 1.2)
                 }
             
             }, completion: {(success) in
+                
                 if isLucky {
+                    
                     UIView.animate(withDuration: 0.4, animations: {
-                        card.transform = .identity
+                        
+                        selectedCard.transform = .identity
+                        
                     }) { (success) in
-                        Haptics.shared.notification(withType: .success)
-                        self.presentChestReward()
+                        
+                        Haptics.shared.impact(withIntensity: 0.5)
+                        
+                        self.hideAllCards(except: selectedCard.tag, thenDo: {
+                            self.moveSelectedCardToCenter(card: selectedCard) {
+                                self.presentChestReward()
+                            }
+                        })
                     }
                     
                 }
-                UIView.animate(withDuration: 0.5) {
-                    card.transform = .identity
-                }
+                 
             })
             
             
         }
         else {
-            card.image = cardBackImage
-            UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromRight, animations: nil, completion: nil)
+            selectedCard.image = cardBackImage
+            UIView.transition(with: selectedCard, duration: 0.4, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
+    }
+    
+    func hideAllCards(except card:Int, thenDo completion:@escaping ()->Void) {
         
+        let otherCards = self.cards.filter({$0.tag != card})
+        for card in otherCards {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                card.alpha = 0.0
+            }) { (success) in
+                card.removeFromSuperview()
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            completion()
+        }
+    }
+    
+    func moveSelectedCardToCenter(card: UIImageView, thenDo completion:@escaping ()->Void) {
+        let viewWidth:CGFloat = self.view.frame.size.width
+        let viewHeight:CGFloat = self.view.frame.size.height
+        let newCardWidth = 2*cardWidth
+        let newCardHeight = 2*cardHeight
+        let newFrame = CGRect(x: Double(viewWidth/2)-(newCardWidth/2.0), y: 200, width: newCardWidth, height: newCardHeight)
+        self.view.sendSubviewToBack(card) // Make sure card is behind all layers so chest presents on top
+        UIView.animate(withDuration: 1.0, animations: {
+            card.frame = newFrame
+        }) { (success) in
+            completion()
+        }
     }
     
     func presentChestReward() {
     
-        for card in self.cards {
-            
-            UIView.animate(withDuration: 0.4, delay: 2.0, options: .curveEaseInOut, animations: {
-                
-                card.alpha = 0.0
-                
-            }) { (success) in
-                
-                if card.tag == 5 {
-                    
-                    self.showChest {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.shakeChestLid()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-                                self.shakeChestLid()
-                            }
-                        }
-                    }
+        self.showChest {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.shakeChestLid()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                    self.shakeChestLid()
                 }
             }
         }
@@ -270,18 +292,24 @@ class ViewController: UIViewController {
     }
     
     func shakeChestLid() {
+        
+        self.shakeCount == 2.0 ?
+            Haptics.shared.notification(withType: .warning) :
+            Haptics.shared.notification(withType: .error)
+        
         let animation = CABasicAnimation(keyPath: "position")
         animation.delegate = self
         animation.duration = 0.1
-        let repeatCount = Float(Int.random(in: 2...4))
-        animation.repeatCount = repeatCount
-        Haptics.shared.notification(withType: .warning)
+//        let repeatCount = Float(Int.random(in: 2...3))
+        animation.repeatCount = self.shakeCount
+        self.shakeCount += 1 // Increment count
         animation.autoreverses = true
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         animation.fromValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y))
         animation.toValue = NSValue(cgPoint: CGPoint(x: chestTop.center.x, y: chestTop.center.y-10))
         chestTop.layer.add(animation, forKey: "position")
+        
     }
     
     func openChest() {
@@ -293,6 +321,7 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.presentCoinExplosionScene()
+            Haptics.shared.impact(withIntensity: 1.0)
         }
         
         UIView.animateKeyframes(withDuration: 0.7, delay: 1.0, options: .calculationModeCubicPaced, animations: {
@@ -319,20 +348,19 @@ class ViewController: UIViewController {
         
         let coinExplosionScene = CoinExplosionScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         
-        let emitterPosition = CGPoint(x: 187.5,y: 230)
+        let emitterPosition = CGPoint(x: 187.5,y: 280)
         
         coinExplosionScene.setupEmittersWithPosition(emitterPosition)
         
         self.skView.presentScene(coinExplosionScene)
     }
     
-    var animationCount = 0
+    var animationCount = 0 // Used below in extension
 }
 
 extension ViewController:CAAnimationDelegate {
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        print("Animation finished")
         
         if animationCount == 1 {
             self.openChest()
