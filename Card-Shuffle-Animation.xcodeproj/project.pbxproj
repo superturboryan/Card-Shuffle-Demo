@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		946706F623BFE07E00790F2B /* card-deal1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 946706F523BFE07E00790F2B /* card-deal1.mp3 */; };
+		946706F823BFE68400790F2B /* card-deal2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 946706F723BFE68400790F2B /* card-deal2.mp3 */; };
+		946706FA23BFE90900790F2B /* card-deal3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 946706F923BFE90900790F2B /* card-deal3.mp3 */; };
+		946706FC23BFE99500790F2B /* coin-collect1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 946706FB23BFE99500790F2B /* coin-collect1.mp3 */; };
+		946706FE23BFEAA500790F2B /* coin-collect2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 946706FD23BFEAA400790F2B /* coin-collect2.mp3 */; };
 		94AB4B6923BEDD550083C19C /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AB4B6823BEDD550083C19C /* Haptics.swift */; };
 		94AB4B6B23BEDDF60083C19C /* Glow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94AB4B6A23BEDDF60083C19C /* Glow.sks */; };
 		94AB4B6D23BEDE010083C19C /* Coin-Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94AB4B6C23BEDE010083C19C /* Coin-Explosion.sks */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		946706F523BFE07E00790F2B /* card-deal1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "card-deal1.mp3"; sourceTree = "<group>"; };
+		946706F723BFE68400790F2B /* card-deal2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "card-deal2.mp3"; sourceTree = "<group>"; };
+		946706F923BFE90900790F2B /* card-deal3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "card-deal3.mp3"; sourceTree = "<group>"; };
+		946706FB23BFE99500790F2B /* coin-collect1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "coin-collect1.mp3"; sourceTree = "<group>"; };
+		946706FD23BFEAA400790F2B /* coin-collect2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "coin-collect2.mp3"; sourceTree = "<group>"; };
 		94AB4B6823BEDD550083C19C /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		94AB4B6A23BEDDF60083C19C /* Glow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Glow.sks; sourceTree = "<group>"; };
 		94AB4B6C23BEDE010083C19C /* Coin-Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Coin-Explosion.sks"; sourceTree = "<group>"; };
@@ -127,6 +137,11 @@
 				94AB4B6823BEDD550083C19C /* Haptics.swift */,
 				94F50CF323B5294F0009F42D /* Main.storyboard */,
 				94F50CF823B529500009F42D /* LaunchScreen.storyboard */,
+				946706F523BFE07E00790F2B /* card-deal1.mp3 */,
+				946706F723BFE68400790F2B /* card-deal2.mp3 */,
+				946706F923BFE90900790F2B /* card-deal3.mp3 */,
+				946706FB23BFE99500790F2B /* coin-collect1.mp3 */,
+				946706FD23BFEAA400790F2B /* coin-collect2.mp3 */,
 				94F50CF623B529500009F42D /* Assets.xcassets */,
 				94F50CFB23B529500009F42D /* Info.plist */,
 			);
@@ -255,12 +270,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946706FA23BFE90900790F2B /* card-deal3.mp3 in Resources */,
 				94AB4B6B23BEDDF60083C19C /* Glow.sks in Resources */,
+				946706F623BFE07E00790F2B /* card-deal1.mp3 in Resources */,
 				94F50CFA23B529500009F42D /* LaunchScreen.storyboard in Resources */,
 				94AB4B6D23BEDE010083C19C /* Coin-Explosion.sks in Resources */,
 				94F50CF723B529500009F42D /* Assets.xcassets in Resources */,
 				94AB4B6F23BEDE0A0083C19C /* Assets.xcassets in Resources */,
+				946706FE23BFEAA500790F2B /* coin-collect2.mp3 in Resources */,
 				94F50CF523B5294F0009F42D /* Main.storyboard in Resources */,
+				946706F823BFE68400790F2B /* card-deal2.mp3 in Resources */,
+				946706FC23BFE99500790F2B /* coin-collect1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

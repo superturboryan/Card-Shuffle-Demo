@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -107,10 +108,47 @@ class ViewController: UIViewController {
         }
     }
     
+    var player:AVAudioPlayer?
+    
+    func playCardDealSound(number:Int, withCount count:Int) {
+        let path = Bundle.main.path(forResource: "card-deal\(number)", ofType : "mp3")!
+        let url = URL(fileURLWithPath : path)
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            if count != 1 {
+                player!.numberOfLoops = count
+            }
+            player!.play()
+
+        } catch {
+            print ("There is an issue with this code!")
+
+        }
+    }
+    
+    func playCoinCollectSound(number:Int, withCount count:Int) {
+        let path = Bundle.main.path(forResource: "coin-collect\(number)", ofType : "mp3")!
+        let url = URL(fileURLWithPath : path)
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player!.numberOfLoops = count
+            player!.volume = 0.05
+            player!.play()
+
+        } catch {
+            print ("There is an issue with this code!")
+
+        }
+    }
+    
     func moveCardsToCenter() {
         
         let viewHeight = self.view.frame.size.height
         let viewWidth = self.view.frame.size.width
+        
+        self.playCardDealSound(number: 2, withCount: 6)
         
         for (index, cardView) in self.cards.enumerated() {
             
@@ -120,8 +158,8 @@ class ViewController: UIViewController {
             
             let newCenterFrame = CGRect(x: x, y: y, width: cardWidth, height: cardHeight)
             
-            UIView.animate(withDuration: 0.9,
-                           delay: 0.15*Double((index+1)),
+            UIView.animate(withDuration: 0.8,
+                           delay: 0.2*Double((index+1)),
                            options: .curveEaseInOut,
                            animations: {
                 
@@ -205,6 +243,8 @@ class ViewController: UIViewController {
         let isLucky = selectedCard.tag == luckyNumber
         
         isLucky ? Haptics.shared.impact(withIntensity: 1.0) : Haptics.shared.selection()
+        
+        isLucky ? self.playCardDealSound(number: 3, withCount: 1) : self.playCardDealSound(number: 1, withCount: 1)
         
         if (selectedCard.image?.isEqual(cardBackImage))! {
             
@@ -328,6 +368,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.presentCoinExplosionScene()
             Haptics.shared.impact(withIntensity: 1.0)
+            self.playCoinCollectSound(number: 2, withCount: 10)
         }
         
         UIView.animateKeyframes(withDuration: 0.7, delay: 1.0, options: .calculationModeCubicPaced, animations: {
