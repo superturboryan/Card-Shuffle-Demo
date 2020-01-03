@@ -347,11 +347,12 @@ class ViewController: UIViewController {
     
     func popupChestCoin() {
         
-        UIView.animate(withDuration: 0.6, delay: 4.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.8, delay: 4.0, options: .curveEaseOut, animations: {
+            
             self.chestCoinView.isHidden = false
             self.chestCoinView.alpha = 1.0
-            let moveUp = CGAffineTransform.init(translationX: 0, y: -90)
-            self.chestCoinView.transform = CGAffineTransform.identity.concatenating(moveUp)
+            let moveUp = CGAffineTransform.init(translationX: 0, y: -95)
+            self.chestCoinView.transform = CGAffineTransform.identity.concatenating(moveUp) // OG size and move up
             
         }) { (success) in
             
