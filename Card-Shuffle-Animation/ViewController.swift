@@ -115,7 +115,7 @@ class ViewController: UIViewController {
             
             UIView.animate(withDuration: 1.0,
                            delay: 0.2*Double((index+1)),
-                           options: .curveEaseInOut,
+                           options: .curveEaseOut,
                            animations: {
                 
                             cardView.frame = newCenterFrame
@@ -130,16 +130,16 @@ class ViewController: UIViewController {
         
         for (index,card) in self.cards.reversed().enumerated() {
             
-            let radius = 40
+            let radius = 30 + Int.random(in: 1...40)
             
             let circlePath = UIBezierPath(arcCenter: card.center, radius: CGFloat(radius), startAngle: 0, endAngle: .pi*2, clockwise: index%2==0)
             
             let animation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
-            animation.duration = 0.8
+            animation.duration = 0.5 + (Double.random(in: 1...3)/10.0)
             animation.repeatCount = 5
             animation.path = circlePath.cgPath
             animation.fillMode = CAMediaTimingFillMode.forwards
-            animation.isRemovedOnCompletion = false
+//            animation.isRemovedOnCompletion = false
 
             DispatchQueue.main.asyncAfter(deadline: .now() + (Double(index)*0.15)) {
                card.layer.add(animation, forKey: nil)
@@ -195,15 +195,37 @@ class ViewController: UIViewController {
         
         let card = tap.view as! UIImageView
         let cardBackImage = UIImage(named: "PF-Card")
+        let isLucky = card.tag == luckyNumber
+        
+        Haptics.shared.selection()
         
         if (card.image?.isEqual(cardBackImage))! {
             
-            card.image = card.tag == self.luckyNumber ? UIImage(named: "PF-Celebrate") : UIImage(named: "PF-Frown")
-            UIView.transition(with: card, duration: 0.4, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+            card.image = isLucky ? UIImage(named: "PF-Celebrate") : UIImage(named: "PF-Frown")
+            UIView.transition(with: card, duration: isLucky ? 0.6 : 0.4, options: .transitionFlipFromLeft, animations: {
+                
+                if isLucky {
+//                    UIView.animate(withDuration: 0.7) {
+                        card.transform = .init(scaleX: 1.2, y: 1.2)
+//                    }
+                }
             
-            if card.tag == self.luckyNumber {
-                self.presentChestReward()
-            }
+            }, completion: {(success) in
+                if isLucky {
+                    UIView.animate(withDuration: 0.4, animations: {
+                        card.transform = .identity
+                    }) { (success) in
+                        Haptics.shared.notification(withType: .success)
+                        self.presentChestReward()
+                    }
+                    
+                }
+                UIView.animate(withDuration: 0.5) {
+                    card.transform = .identity
+                }
+            })
+            
+            
         }
         else {
             card.image = cardBackImage
@@ -251,7 +273,9 @@ class ViewController: UIViewController {
         let animation = CABasicAnimation(keyPath: "position")
         animation.delegate = self
         animation.duration = 0.1
-        animation.repeatCount = Float(Int.random(in: 2...4))
+        let repeatCount = Float(Int.random(in: 2...4))
+        animation.repeatCount = repeatCount
+        Haptics.shared.notification(withType: .warning)
         animation.autoreverses = true
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false

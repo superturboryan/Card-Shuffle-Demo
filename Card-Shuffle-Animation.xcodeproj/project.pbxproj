@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94AB4B6923BEDD550083C19C /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AB4B6823BEDD550083C19C /* Haptics.swift */; };
+		94AB4B6B23BEDDF60083C19C /* Glow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94AB4B6A23BEDDF60083C19C /* Glow.sks */; };
+		94AB4B6D23BEDE010083C19C /* Coin-Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94AB4B6C23BEDE010083C19C /* Coin-Explosion.sks */; };
+		94AB4B6F23BEDE0A0083C19C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94AB4B6E23BEDE0A0083C19C /* Assets.xcassets */; };
+		94AB4B7123BEDE180083C19C /* CoinExplosionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AB4B7023BEDE180083C19C /* CoinExplosionScene.swift */; };
 		94F50CEE23B5294F0009F42D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50CED23B5294F0009F42D /* AppDelegate.swift */; };
 		94F50CF023B5294F0009F42D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50CEF23B5294F0009F42D /* SceneDelegate.swift */; };
 		94F50CF223B5294F0009F42D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50CF123B5294F0009F42D /* ViewController.swift */; };
@@ -15,10 +20,6 @@
 		94F50CFA23B529500009F42D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94F50CF823B529500009F42D /* LaunchScreen.storyboard */; };
 		94F50D0523B529500009F42D /* Card_Shuffle_AnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50D0423B529500009F42D /* Card_Shuffle_AnimationTests.swift */; };
 		94F50D1023B529500009F42D /* Card_Shuffle_AnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50D0F23B529500009F42D /* Card_Shuffle_AnimationUITests.swift */; };
-		94F50D2223B6990A0009F42D /* Coin-Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94F50D2023B6990A0009F42D /* Coin-Explosion.sks */; };
-		94F50D2323B6990A0009F42D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94F50D2123B6990A0009F42D /* Assets.xcassets */; };
-		94F50D2723B69C4E0009F42D /* CoinExplosionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F50D2623B69C4E0009F42D /* CoinExplosionScene.swift */; };
-		94F50D2923B6A6EA0009F42D /* Glow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 94F50D2823B6A6EA0009F42D /* Glow.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		94AB4B6823BEDD550083C19C /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		94AB4B6A23BEDDF60083C19C /* Glow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Glow.sks; sourceTree = "<group>"; };
+		94AB4B6C23BEDE010083C19C /* Coin-Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Coin-Explosion.sks"; sourceTree = "<group>"; };
+		94AB4B6E23BEDE0A0083C19C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		94AB4B7023BEDE180083C19C /* CoinExplosionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinExplosionScene.swift; sourceTree = "<group>"; };
 		94F50CEA23B5294F0009F42D /* Card-Shuffle-Animation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Card-Shuffle-Animation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F50CED23B5294F0009F42D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94F50CEF23B5294F0009F42D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,10 +59,6 @@
 		94F50D0B23B529500009F42D /* Card-Shuffle-AnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Card-Shuffle-AnimationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F50D0F23B529500009F42D /* Card_Shuffle_AnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card_Shuffle_AnimationUITests.swift; sourceTree = "<group>"; };
 		94F50D1123B529500009F42D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94F50D2023B6990A0009F42D /* Coin-Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Coin-Explosion.sks"; path = "../../../../Documents/Coin-Explosion.sks"; sourceTree = "<group>"; };
-		94F50D2123B6990A0009F42D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Documents/Assets.xcassets; sourceTree = "<group>"; };
-		94F50D2623B69C4E0009F42D /* CoinExplosionScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoinExplosionScene.swift; path = ../../../../Documents/CoinExplosionScene.swift; sourceTree = "<group>"; };
-		94F50D2823B6A6EA0009F42D /* Glow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Glow.sks; path = ../../../../Documents/Glow.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		94AB4B7223BEDE500083C19C /* SKEmitter */ = {
+			isa = PBXGroup;
+			children = (
+				94AB4B6E23BEDE0A0083C19C /* Assets.xcassets */,
+				94AB4B6A23BEDDF60083C19C /* Glow.sks */,
+				94AB4B6C23BEDE010083C19C /* Coin-Explosion.sks */,
+				94AB4B7023BEDE180083C19C /* CoinExplosionScene.swift */,
+			);
+			path = SKEmitter;
+			sourceTree = "<group>";
+		};
 		94F50CE123B5294F0009F42D = {
 			isa = PBXGroup;
 			children = (
@@ -107,10 +120,11 @@
 		94F50CEC23B5294F0009F42D /* Card-Shuffle-Animation */ = {
 			isa = PBXGroup;
 			children = (
-				94F50D1D23B698670009F42D /* Emitter */,
+				94AB4B7223BEDE500083C19C /* SKEmitter */,
 				94F50CED23B5294F0009F42D /* AppDelegate.swift */,
 				94F50CEF23B5294F0009F42D /* SceneDelegate.swift */,
 				94F50CF123B5294F0009F42D /* ViewController.swift */,
+				94AB4B6823BEDD550083C19C /* Haptics.swift */,
 				94F50CF323B5294F0009F42D /* Main.storyboard */,
 				94F50CF823B529500009F42D /* LaunchScreen.storyboard */,
 				94F50CF623B529500009F42D /* Assets.xcassets */,
@@ -135,17 +149,6 @@
 				94F50D1123B529500009F42D /* Info.plist */,
 			);
 			path = "Card-Shuffle-AnimationUITests";
-			sourceTree = "<group>";
-		};
-		94F50D1D23B698670009F42D /* Emitter */ = {
-			isa = PBXGroup;
-			children = (
-				94F50D2123B6990A0009F42D /* Assets.xcassets */,
-				94F50D2023B6990A0009F42D /* Coin-Explosion.sks */,
-				94F50D2823B6A6EA0009F42D /* Glow.sks */,
-				94F50D2623B69C4E0009F42D /* CoinExplosionScene.swift */,
-			);
-			path = Emitter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,12 +255,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94F50D2923B6A6EA0009F42D /* Glow.sks in Resources */,
+				94AB4B6B23BEDDF60083C19C /* Glow.sks in Resources */,
 				94F50CFA23B529500009F42D /* LaunchScreen.storyboard in Resources */,
+				94AB4B6D23BEDE010083C19C /* Coin-Explosion.sks in Resources */,
 				94F50CF723B529500009F42D /* Assets.xcassets in Resources */,
+				94AB4B6F23BEDE0A0083C19C /* Assets.xcassets in Resources */,
 				94F50CF523B5294F0009F42D /* Main.storyboard in Resources */,
-				94F50D2223B6990A0009F42D /* Coin-Explosion.sks in Resources */,
-				94F50D2323B6990A0009F42D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +287,9 @@
 			files = (
 				94F50CF223B5294F0009F42D /* ViewController.swift in Sources */,
 				94F50CEE23B5294F0009F42D /* AppDelegate.swift in Sources */,
+				94AB4B6923BEDD550083C19C /* Haptics.swift in Sources */,
+				94AB4B7123BEDE180083C19C /* CoinExplosionScene.swift in Sources */,
 				94F50CF023B5294F0009F42D /* SceneDelegate.swift in Sources */,
-				94F50D2723B69C4E0009F42D /* CoinExplosionScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
