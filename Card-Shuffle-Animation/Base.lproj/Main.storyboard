@@ -77,8 +77,15 @@
                                     <constraint firstAttribute="width" constant="320" id="xt9-Y1-Kgd"/>
                                 </constraints>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="95-Grit" translatesAutoresizingMaskIntoConstraints="NO" id="jHH-Ga-5x8">
+                                <rect key="frame" x="124.5" y="342.5" width="130" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="IFo-Fb-GKx"/>
+                                    <constraint firstAttribute="width" constant="130" id="WPF-yI-3gJ"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvj-49-I9b" userLabel="Chest View">
-                                <rect key="frame" x="82.5" y="307.5" width="210" height="162"/>
+                                <rect key="frame" x="84.5" y="312.5" width="210" height="162"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYm-MY-lqS">
                                         <rect key="frame" x="40" y="94" width="130" height="50"/>
@@ -114,14 +121,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.12432396083604225" blue="0.38486355762847835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="jHH-Ga-5x8" firstAttribute="top" secondItem="Kvj-49-I9b" secondAttribute="top" constant="30" id="4fR-uB-ema"/>
                             <constraint firstItem="bar-T0-0Cw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="I8e-Z9-aj4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bar-T0-0Cw" secondAttribute="trailing" id="Ikk-cD-VDl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rkn-Dz-ySK" secondAttribute="bottom" constant="40" id="JWn-qu-y0U"/>
                             <constraint firstItem="bar-T0-0Cw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ljd-R8-JFf"/>
                             <constraint firstItem="Pv4-W2-x0U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="N9i-P0-d8C"/>
-                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="55" id="TdL-er-mZx"/>
+                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="60" id="TdL-er-mZx"/>
+                            <constraint firstItem="jHH-Ga-5x8" firstAttribute="centerX" secondItem="Kvj-49-I9b" secondAttribute="centerX" id="U24-8X-p6E"/>
                             <constraint firstItem="rkn-Dz-ySK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p0d-Gr-fex"/>
-                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rdR-Ij-mEk"/>
+                            <constraint firstItem="Kvj-49-I9b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="2" id="rdR-Ij-mEk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bar-T0-0Cw" secondAttribute="bottom" id="vfN-A7-qOn"/>
                             <constraint firstItem="Pv4-W2-x0U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vpM-8d-ef8"/>
                         </constraints>
@@ -130,6 +139,7 @@
                     <connections>
                         <outlet property="addButton" destination="9Me-Jq-evI" id="gwv-XH-TOY"/>
                         <outlet property="chestBottom" destination="Dkp-7s-GlO" id="NB9-Lg-Njg"/>
+                        <outlet property="chestCoinView" destination="jHH-Ga-5x8" id="zda-Mt-zjC"/>
                         <outlet property="chestTop" destination="FZG-bN-Edf" id="HSY-ed-8BT"/>
                         <outlet property="chestView" destination="Kvj-49-I9b" id="Esz-Iv-7Wk"/>
                         <outlet property="clearButton" destination="dyX-7z-jUi" id="hBj-ey-F7K"/>
@@ -144,6 +154,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="95-Grit" width="180" height="180"/>
         <image name="chest-bottom" width="128" height="128"/>
         <image name="chest-top" width="128" height="128"/>
     </resources>

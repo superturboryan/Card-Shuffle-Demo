@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var chestBottom: UIImageView!
     @IBOutlet weak var chestTop: UIImageView!
     
+    @IBOutlet weak var chestCoinView: UIImageView!
+    
     @IBOutlet weak var skView: SKView!
     
     var luckyNumber = 0
@@ -46,6 +48,10 @@ class ViewController: UIViewController {
         self.chestView.layer.masksToBounds = false
         self.chestView.isHidden = true
         self.chestView.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+        
+        self.chestCoinView.alpha = 0.0
+        self.chestCoinView.isHidden = true
+        self.chestCoinView.transform = .init(scaleX: 0, y: 0)
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
@@ -202,7 +208,7 @@ class ViewController: UIViewController {
         
         if (selectedCard.image?.isEqual(cardBackImage))! {
             
-            selectedCard.image = isLucky ? UIImage(named: "PF-White") : UIImage(named: "PF-Frown")
+            selectedCard.image = isLucky ? UIImage(named: "PF-White-Blank") : UIImage(named: "PF-Frown")
             UIView.transition(with: selectedCard, duration: isLucky ? 0.6 : 0.4, options: .transitionFlipFromLeft, animations: {
                 
                 if isLucky {
@@ -335,6 +341,23 @@ class ViewController: UIViewController {
             }
             
         }) { (success) in }
+        
+        self.popupChestCoin()
+    }
+    
+    func popupChestCoin() {
+        
+        UIView.animate(withDuration: 0.6, delay: 4.0, options: .curveEaseInOut, animations: {
+            self.chestCoinView.isHidden = false
+            self.chestCoinView.alpha = 1.0
+            let moveUp = CGAffineTransform.init(translationX: 0, y: -90)
+            self.chestCoinView.transform = CGAffineTransform.identity.concatenating(moveUp)
+            
+        }) { (success) in
+            
+        }
+        
+        
     }
     
     func presentEmptyScene() {
@@ -348,7 +371,7 @@ class ViewController: UIViewController {
         
         let coinExplosionScene = CoinExplosionScene(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         
-        let emitterPosition = CGPoint(x: 187.5,y: 280)
+        let emitterPosition = CGPoint(x: 187.5,y: 260)
         
         coinExplosionScene.setupEmittersWithPosition(emitterPosition)
         
